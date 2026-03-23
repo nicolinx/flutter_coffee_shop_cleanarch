@@ -1,0 +1,50 @@
+lib/
+├── core/                           # Phase 1: Global tools
+│   ├── local_db/                   
+│   │   └── shared_prefs_helper.dart# Wraps SharedPreferences for the cart
+│   ├── network/                    
+│   │   └── dummy_api_client.dart   # Returns our fake JSON coffees
+│   └── theme/                      
+│       └── app_theme.dart          # Basic colors and text styles
+│
+├── features/                       
+│   │
+│   ├── catalog/                    # Phase 2: Browsing coffees
+│   │   ├── bloc/                   
+│   │   │   ├── catalog_bloc.dart
+│   │   │   ├── catalog_event.dart
+│   │   │   └── catalog_state.dart
+│   │   ├── models/                 
+│   │   │   └── coffee_model.dart   # Freezed entity + JSON mapper
+│   │   ├── repository/             
+│   │   │   └── coffee_repository.dart # Calls DummyApiClient
+│   │   └── ui/                     
+│   │       ├── catalog_screen.dart
+│   │       └── widgets/
+│   │           └── coffee_card.dart
+│   │
+│   ├── cart/                       # Phase 3: Managing the cart
+│   │   ├── bloc/                   
+│   │   │   ├── cart_bloc.dart
+│   │   │   ├── cart_event.dart
+│   │   │   └── cart_state.dart
+│   │   ├── models/                 
+│   │   │   └── cart_item_model.dart
+│   │   ├── repository/             
+│   │   │   └── cart_repository.dart   # Calls SharedPrefsHelper
+│   │   └── ui/                     
+│   │       └── cart_screen.dart
+│   │
+│   └── checkout/                   # Phase 4: The Final Boss
+│       ├── bloc/                   
+│       │   ├── checkout_bloc.dart
+│       │   ├── checkout_event.dart
+│       │   └── checkout_state.dart
+│       ├── managers/               
+│       │   └── checkout_manager.dart  # Coordinates CartRepo & PaymentService
+│       ├── services/               
+│       │   └── payment_service.dart   # Fake 2-second delay payment
+│       └── ui/                     
+│           └── checkout_success_screen.dart
+│
+└── main.dart                       # App entry, BlocProviders, & DI setup
