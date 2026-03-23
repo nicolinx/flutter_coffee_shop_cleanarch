@@ -4,6 +4,9 @@ import 'package:flutter_coffee_shop_cleanarch/core/local_db/shared_prefs_helper.
 import 'package:flutter_coffee_shop_cleanarch/features/cart/bloc/cart_bloc.dart';
 import 'package:flutter_coffee_shop_cleanarch/features/cart/bloc/cart_event.dart';
 import 'package:flutter_coffee_shop_cleanarch/features/cart/repository/cart_repository.dart';
+import 'package:flutter_coffee_shop_cleanarch/features/checkout/bloc/checkout_bloc.dart';
+import 'package:flutter_coffee_shop_cleanarch/features/checkout/managers/checkout_manager.dart';
+import 'package:flutter_coffee_shop_cleanarch/features/checkout/services/payment_service.dart';
 import 'core/network/dummy_api_client.dart';
 import 'features/catalog/bloc/catalog_bloc.dart';
 import 'features/catalog/bloc/catalog_event.dart';
@@ -20,11 +23,15 @@ void main() {
   final sharedPrefsHelper = SharedPrefsHelper();
   final cartRepository = CartRepository(sharedPrefsHelper);
 
+  final paymentService = PaymentService();
+  final checkoutManager = CheckoutManager(cartRepository, paymentService);
+
   runApp(
     MultiRepositoryProvider(
       providers: [
         RepositoryProvider.value(value: coffeeRepository),
         RepositoryProvider.value(value: cartRepository),
+        RepositoryProvider.value(value: checkoutManager),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -37,6 +44,9 @@ void main() {
             create: (context) =>
                 CartBloc(context.read<CartRepository>())
                   ..add(LoadCartStarted()),
+          ),
+          BlocProvider(
+            create: (context) => CheckoutBloc(context.read<CheckoutManager>()),
           ),
         ],
         child: const CoffeeShopApp(),

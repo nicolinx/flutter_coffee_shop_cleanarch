@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_coffee_shop_cleanarch/features/cart/bloc/cart_bloc.dart';
 import 'package:flutter_coffee_shop_cleanarch/features/cart/bloc/cart_event.dart';
+import 'package:flutter_coffee_shop_cleanarch/features/cart/bloc/cart_state.dart';
+import 'package:flutter_coffee_shop_cleanarch/features/cart/ui/cart_screen.dart';
 import 'package:flutter_coffee_shop_cleanarch/features/catalog/bloc/catalog_bloc.dart';
 import 'package:flutter_coffee_shop_cleanarch/features/catalog/bloc/catalog_state.dart';
 
@@ -12,6 +14,24 @@ class CatalogScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('☕ Coffee Menu')),
+      floatingActionButton: BlocBuilder<CartBloc, CartState>(
+        builder: (context, state) {
+          return FloatingActionButton.extended(
+            backgroundColor: Colors.brown,
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const CartScreen()),
+              );
+            },
+            label: Text(
+              'View Cart (${state.items.length})',
+              style: const TextStyle(color: Colors.white),
+            ),
+            icon: const Icon(Icons.shopping_cart, color: Colors.white),
+          );
+        },
+      ),
       body: BlocBuilder<CatalogBloc, CatalogState>(
         builder: (context, state) {
           if (state is CatalogLoading) {
