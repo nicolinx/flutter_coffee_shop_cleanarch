@@ -1,0 +1,15 @@
+{
+  "files.exclude": {
+    "**/*.freezed.dart": true,
+    "**/*.g.dart": true
+  },
+  "dart.lineLength": 80,
+  "workbench.tree.indent": 16,
+  "workbench.tree.renderIndentGuides": "always",
+  "workbench.colorCustomizations": {
+    "tree.indentGuidesStroke": "#ffbaba",
+    "tree.activeIndentGuideStroke": "#007ACC"
+  },
+  "editor.defaultFormatter": "Dart-Code.dart-code",
+  "notebook.defaultFormatter": "Dart-Code.dart-code"
+}
