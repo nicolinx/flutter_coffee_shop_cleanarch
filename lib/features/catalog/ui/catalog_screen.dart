@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_coffee_shop_cleanarch/features/cart/bloc/cart_bloc.dart';
+import 'package:flutter_coffee_shop_cleanarch/features/cart/bloc/cart_event.dart';
 import 'package:flutter_coffee_shop_cleanarch/features/catalog/bloc/catalog_bloc.dart';
 import 'package:flutter_coffee_shop_cleanarch/features/catalog/bloc/catalog_state.dart';
 
@@ -25,7 +27,18 @@ class CatalogScreen extends StatelessWidget {
                   leading: const Icon(Icons.coffee_outlined),
                   title: Text(coffee.name),
                   subtitle: Text(coffee.description),
-                  trailing: Text('\$${coffee.price.toStringAsFixed(2)}'),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.add_shopping_cart),
+                    onPressed: () {
+                      context.read<CartBloc>().add(AddToCartPressed(coffee));
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('${coffee.name} added to cart!'),
+                        ),
+                      );
+                    },
+                  ),
                 );
               },
             );
