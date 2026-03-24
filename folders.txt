@@ -1,50 +1,35 @@
-lib/
-├── core/                           # Phase 1: Global tools
-│   ├── local_db/                   
-│   │   └── shared_prefs_helper.dart# Wraps SharedPreferences for the cart
-│   ├── network/                    
-│   │   └── dummy_api_client.dart   # Returns our fake JSON coffees
-│   └── theme/                      
-│       └── app_theme.dart          # Basic colors and text styles
-│
-├── features/                       
-│   │
-│   ├── catalog/                    # Phase 2: Browsing coffees
-│   │   ├── bloc/                   
-│   │   │   ├── catalog_bloc.dart
-│   │   │   ├── catalog_event.dart
-│   │   │   └── catalog_state.dart
-│   │   ├── models/                 
-│   │   │   └── coffee_model.dart   # Freezed entity + JSON mapper
-│   │   ├── repository/             
-│   │   │   └── coffee_repository.dart # Calls DummyApiClient
-│   │   └── ui/                     
-│   │       ├── catalog_screen.dart
-│   │       └── widgets/
-│   │           └── coffee_card.dart
-│   │
-│   ├── cart/                       # Phase 3: Managing the cart
-│   │   ├── bloc/                   
-│   │   │   ├── cart_bloc.dart
-│   │   │   ├── cart_event.dart
-│   │   │   └── cart_state.dart
-│   │   ├── models/                 
-│   │   │   └── cart_item_model.dart
-│   │   ├── repository/             
-│   │   │   └── cart_repository.dart   # Calls SharedPrefsHelper
-│   │   └── ui/                     
-│   │       └── cart_screen.dart
-│   │
-│   └── checkout/                   # Phase 4: The Final Boss
-│       ├── bloc/                   
-│       │   ├── checkout_bloc.dart
-│       │   ├── checkout_event.dart
-│       │   └── checkout_state.dart
-│       ├── managers/               
-│       │   └── checkout_manager.dart  # Coordinates CartRepo & PaymentService
-│       ├── services/               
-│       │   └── payment_service.dart   # Fake 2-second delay payment
-│       └── ui/                     
-│           └── checkout_success_screen.dart
-│
-└── main.dart                       # App entry, BlocProviders, & DI setup
+      
+      
+      lib/
+      ├── core/                           # Shared infrastructure and utilities
+      │   ├── local_db/                   
+      │   │   └── shared_prefs_helper.dart# Persistence logic (e.g., SharedPreferences)
+      │   ├── network/                    
+      │   │   └── dummy_api_client.dart   # Network client or mock API data
+      │   └── theme/                      
+      │       └── app_theme.dart          # Global styling and theme data
+      │
+      ├── features/                       # Application logic grouped by feature
+      │   ├── catalog/                    # Feature: Product browsing
+      │   │   ├── bloc/                   # State management (Event, State, Bloc)
+      │   │   ├── models/                 # Data models (Freezed / JSON serialization)
+      │   │   ├── repository/             # Data access (Talks to API client)
+      │   │   └── ui/                     # Feature-specific screens and widgets
+      │   │
+      │   ├── cart/                       # Feature: Local cart management
+      │   │   ├── bloc/                   
+      │   │   ├── repository/             # Logic for managing local cart data
+      │   │   └── ui/                     
+      │   │
+      │   └── checkout/                   # Feature: Order processing
+      │       ├── bloc/                   
+      │       ├── managers/               # Coordination: Handles CartRepo + PaymentService
+      │       ├── services/               # External integrations (e.g., Payment Gateway)
+      │       └── ui/                     
+      │
+      └── main.dart                       # Dependency injection and app entry point
+
+
+
+
+
